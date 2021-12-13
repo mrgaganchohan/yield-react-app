@@ -9,6 +9,7 @@ export default function Home() {
         }
         else {
             // enter node url here with proper link
+            url = 'https://app-service-yield-servicebus-queue-sender.azurewebsites.net/'
         }
         return url
     }
@@ -20,6 +21,7 @@ export default function Home() {
         }
         else {
             // enter node url here with proper link
+            url = 'https://app-service-yield-servicebus-queue-consumer.azurewebsites.net/'
         }
         return url
     }
@@ -80,31 +82,31 @@ export default function Home() {
             </div>
             <div className="col-3 mt-5" xs="3" lg="3">
                 <button type="button"
-                        class="btn btn-success"
-                        onClick={()=>{
-                            setConsumeQueueLoader(true)
+                    class="btn btn-success"
+                    onClick={() => {
+                        setConsumeQueueLoader(true)
 
-                            fetch(URL_CONSUMER + 'consumeQueue')
+                        fetch(URL_CONSUMER + 'consumeQueue')
 
-                                .then(response => response.json())
-                                .then((data) => {
-                                    if (data.success) {
-                                        setConsumeQueueLoader(false)
-                                        setRetrievedBusContent(data.queueContent)
-
-                                    }
+                            .then(response => response.json())
+                            .then((data) => {
+                                if (data.success) {
                                     setConsumeQueueLoader(false)
+                                    setRetrievedBusContent(data.queueContent)
 
-                                })
-                        }}
+                                }
+                                setConsumeQueueLoader(false)
+
+                            })
+                    }}
 
                 >{consumeQueueLoader === true ? <div class="row"><div class="spinner-border text-warning" role="status">
-                <span class="sr-only"></span>
-            </div>{'Consume Service Bus'}</div> :
-                'Consume Service Bus'}</button>
+                    <span class="sr-only"></span>
+                </div>{'Consume Service Bus'}</div> :
+                    'Consume Service Bus'}</button>
             </div>
             <div className="mt-4">
-               {retrievedBusContent===''?null: <p><b>Key Received:</b>{retrievedBusContent}</p>}
+                {retrievedBusContent === '' ? null : <p><b>Key Received:</b>{retrievedBusContent}</p>}
 
             </div>
         </div>
